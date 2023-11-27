@@ -35,24 +35,84 @@
   <script src="js/add-element.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore-compat.js"></script>
-  <script>
+  <script type="module">
+
+    // Import the functions you need from the SDKs you need
+  
+    //import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+  
+    //import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
+  
+    // TODO: Add SDKs for Firebase products that you want to use
+  
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+  
+    // Your web app's Firebase configuration
+  
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  
     const firebaseConfig = {
-      apiKey: "AIzaSyAzcwgZuLA7dO9g4sQhXQVTUgCo0M8m2qM",
-      authDomain: "grocerylist-91956.firebaseapp.com",
-      databaseURL: "https://grocerylist-91956.firebaseio.com",
-      projectId: "grocerylist-91956",
-      storageBucket: "grocerylist-91956.appspot.com",
-      messagingSenderId: "813812426276",
-      appId: "1:813812426276:web:93e5897af12892ff78dab1",
-      measurementId: "G-VZ83BTR72T"
-    }; 
+  
+      apiKey: "AIzaSyBP8NWuRxDY0jEk3z1Gw_ZNb8akYxGGahI",
+  
+      authDomain: "database2023-7371a.firebaseapp.com",
+  
+      projectId: "database2023-7371a",
+  
+      storageBucket: "database2023-7371a.appspot.com",
+  
+      messagingSenderId: "608618523193",
+  
+      appId: "1:608618523193:web:6202ab6dbcadb0386b7be8",
+  
+      measurementId: "G-Z7HY77XX0S"
+  
+    };
+  
+  
     // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      const db = firebase.firestore();
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  
+    //const analytics = getAnalytics(app);
+    //read the data from the database and updatelist
+    $('li').remove();
 
-    // Save the list to database
+    db.collection("shopinglist").get().then((querySnapshot)=>{
+      querySnapshot.forEach((doc) => {
+        var item = doc.data().iteam;
+        console.log("loading .. ", item);
+
+        $("#todo").append("<li> "+ item +"</li>");
+
+      });
+      // update the list
+
+    });
+
+    //save the list to db
+
+    $("#save").click(function () {
 
 
+      $('li').each(function() {
+        var iteams = $(this).text();
+        db.collection("shopinglist").add({iteam:  iteams})
+        
+      })
+      //testing
+      //db.collection("shopinglist").add({
+        //iteam: "apple"
+     // });
+      
+
+
+    });
+
+    //db.collection("shopinglist")
+
+  
   </script>
 
 
